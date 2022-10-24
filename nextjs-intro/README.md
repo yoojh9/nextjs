@@ -114,6 +114,8 @@ export default function NavBar() {
 
 ### (2) Styled.jsx
 
+-   https://github.com/yoojh9/nextjs/commit/dbe927e8d5c95ab1013201bbcd6ece193edd47fb
+
 ```
 export default function NavBar() {
     const router = useRouter();
@@ -168,5 +170,107 @@ export default function Home() {
             `}</style>
         </div>
     );
+}
+```
+
+<br><br>
+
+## 6) Global Styles 추가
+
+-   style 태그에 global Prop을 추가한다.
+
+```
+<style jsx global>
+    {``}
+</style>
+```
+
+-   App Component App Page
+
+### (1) App Component
+
+-   App Component는 NextJS가 모든 페이지를 렌더링할 수 있게 하는 일종의 어떤 컴포넌트의 청사진(blue print)이다.
+-   기본적으로 Next.js 프레임워크 내에 포함되어 있다. 하지만 그걸 커스터마이징하려면 어떤 파일을 하나 만들어야 하는데, **\_app.js**라는 이름으로 만들어야 한다.
+-   Next.js는 index.js 파일을 렌더링 하기 전에 \_app.js를 먼저 확인하고, \_app.js에 넣어둔 청사진을 기반으로 index.js의 내용을 렌더링한다.
+-   그러므로 \_app.js는 어떻게 페이지가 있어야 하는지, 어떤 컴포넌트가 어떤 페이지에 있어야 하는지에 대한 청사진이다.
+
+<br>
+
+```
+export default function App({Component, pageProps}) {
+    return (
+        <Component {...pageProps}/>
+    )
+}
+```
+
+-   NextJS가 about가 about 페이지를 렌더링하려고 할 때, NextJS는 About 컴포넌트를 가져다가 Component의 prop으로서 \_app.js 파일 내의 App 함수에 전달해준다. 그리고 App 함수는 그 페이지를 렌더링한다.
+
+<br>
+
+-   원한다면 Global Styles를 추가할 수도 있다.
+
+```
+export default function App({Component, pageProps}) {
+    return (
+        <>
+            <NavBar/>
+            <Component {...pageProps}/>
+            <style jsx global>{`
+                a {
+                    color: gray;
+                }
+            `}</style>
+        </>
+    )
+}
+```
+
+<br>
+
+-   만약 Next.js에서 페이지나 컴포넌트 내에 css를 임포트 하고 싶다면 반드시 module이어야 한다.
+
+-   예를 들어 about.js에 아래와 같이 globals.css를 import 하면 에러가 발생한다.
+
+```
+// about.js
+
+import "../styles/globals.css";
+
+export default function About() {
+    return <div>
+        <h1>About</h1>
+    </div>
+}
+```
+
+<br>
+
+```
+error - ./styles/globals.css
+
+Global CSS cannot be imported from files other than your Custom <App>. Due to the Global nature of stylesheets, and to avoid conflicts,
+```
+
+-   하지만 커스텀 App 컴포넌트가 있는 \_app.js에서는 모든 Global Styles를 임포트 할 수 있다.
+
+```
+// _app.js
+
+import NavBar from "../components/NavBar";
+import "../styles/globals.css"
+
+export default function App({Component, pageProps}) {
+    return (
+        <>
+            <NavBar/>
+            <Component {...pageProps}/>
+            <style jsx global>{`
+                a {
+                    color: gray;
+                }
+            `}</style>
+        </>
+    )
 }
 ```
