@@ -61,8 +61,12 @@ export default function NavBar() {
 }
 ```
 
+<br>
+
 -   Next.js 어플리케이션에서 <a> 태그를 내비게이션 하는 데에 사용하면 안되는 이유는 Next.js에 앱 내에서 페이지를 네비게이트 할 때 사용해야만 하는 특정 컴포넌트가 존재하기 때문이다. (React.js에서 React Router Link를 사용해야 할 때와 같은 이유이다.)
 -   <a> 태그로 이동하게 되면 전체 어플리케이션이 새로고침 된다. 이 말은 브라우저가 다른 페이지로 보내기 위해 전체 페이지를 새로고침 한다는 말이다. 이런 방식은 느릴 수 있기 때문에 Next.js에서는 특정 Link 컴포넌트가 존재한다.
+
+<br>
 
 ```
 import Link from "next/link";
@@ -74,3 +78,34 @@ export default function NavBar() {
     </nav>
 }
 ```
+
+<br><br>
+
+## 5) CSS Modules
+
+-   아래 패턴을 CSS 모듈이라고 하는데, 이 패턴은 className을 추가할 때, className을 텍스트로 적지 않고 자바스크립트 오브젝트에서의 프로퍼티 형식으로 적는다.
+
+```
+import styles from './NavBar.module.css';
+
+export default function NavBar() {
+    const router = useRouter();
+
+    return <nav className={styles.nav}>
+       ...
+    </nav>
+}
+```
+
+<br>
+
+-   이런 방식의 장점은 클래스 이름을 내부적으로 변경해주므로 그 어떤 '충돌'도 만들지 않는다.
+-   아래는 위 코드를 소스보기 했을 때의 코드이다.
+
+```
+<nav class="NavBar_nav__OBiyO"><a style="color:blue" href="/">Home</a><a style="color:red" href="/about">About</a></nav>
+```
+
+<br>
+
+### (1) 첫번째 방식
