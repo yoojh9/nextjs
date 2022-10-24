@@ -163,6 +163,8 @@ export default function NavBar() {
 -   또한 h1 태그 내에 'active'라는 className을 직접 입력해도 작동하지 않는다. className은 랜덤으로 이름이 변경되고 내부에서만 적용된다.
 -   이렇게 랜덤으로 변경되는 className은 충돌에서부터 구해준다.
 
+<br>
+
 ```javascript
 // index.js
 
@@ -243,45 +245,49 @@ export default function App({ Component, pageProps }) {
 
 -   예를 들어 about.js에 아래와 같이 globals.css를 import 하면 에러가 발생한다.
 
-```
+```javascript
 // about.js
 
 import "../styles/globals.css";
 
 export default function About() {
-    return <div>
-        <h1>About</h1>
-    </div>
+    return (
+        <div>
+            <h1>About</h1>
+        </div>
+    );
 }
 ```
 
 <br>
 
-```
+```javascript
 error - ./styles/globals.css
 
 Global CSS cannot be imported from files other than your Custom <App>. Due to the Global nature of stylesheets, and to avoid conflicts,
 ```
 
+<br>
+
 -   하지만 커스텀 App 컴포넌트가 있는 \_app.js에서는 모든 Global Styles를 임포트 할 수 있다.
 
-```
+```javascript
 // _app.js
 
 import NavBar from "../components/NavBar";
-import "../styles/globals.css"
+import "../styles/globals.css";
 
-export default function App({Component, pageProps}) {
+export default function App({ Component, pageProps }) {
     return (
         <>
-            <NavBar/>
-            <Component {...pageProps}/>
+            <NavBar />
+            <Component {...pageProps} />
             <style jsx global>{`
                 a {
                     color: gray;
                 }
             `}</style>
         </>
-    )
+    );
 }
 ```
