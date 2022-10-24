@@ -41,3 +41,36 @@
 -   react.js를 프론트엔드 안에서 실행하는 걸 hydration이라고 부른다.
 -   왜냐면 next.js는 react.js를 백엔드에서 동작시켜서 이 페이지를 미리 만드는데, 이 때 component들을 render 시키고 렌더링이 끝났을 때 HTML이 된다. next.js는 그 HTML을 페이지의 소스코드에 넣어준다. 그럼 유저는 자바스크립트와 react.js가 로딩되지 않았더라도 콘텐츠를 볼 수 있다. 그리고 react.js가 로딩 되었을 때 기본적으로 이미 존재하는 것들과 연결하여, 일반적인 react.js 앱이 된다.
 -   유저가 웹 사이트에 가면 초기 상태의 component로 된 미리 생성된 HTML 페이지를 보게 되고 그리고 상호 작용이 일어나면 react.js는 그걸 받아서 아주 잘 동작하게 된다.
+
+<br><br>
+
+## 4) Routing
+
+-   NavBar.js 에서 아래와 같이 nativage 하는 데 <a> 태그를 사용하게 되면 아래와 같은 ESLint 에러 메세지를 볼 수 있다.
+
+```
+Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead
+```
+
+```
+export default function NavBar() {
+    return <nav>
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+    </nav>
+}
+```
+
+-   Next.js 어플리케이션에서 <a> 태그를 내비게이션 하는 데에 사용하면 안되는 이유는 Next.js에 앱 내에서 페이지를 네비게이트 할 때 사용해야만 하는 특정 컴포넌트가 존재하기 때문이다. (React.js에서 React Router Link를 사용해야 할 때와 같은 이유이다.)
+-   <a> 태그로 이동하게 되면 전체 어플리케이션이 새로고침 된다. 이 말은 브라우저가 다른 페이지로 보내기 위해 전체 페이지를 새로고침 한다는 말이다. 이런 방식은 느릴 수 있기 때문에 Next.js에서는 특정 Link 컴포넌트가 존재한다.
+
+```
+import Link from "next/link";
+
+export default function NavBar() {
+    return <nav>
+        <Link href="/">Home</Link>
+        <Link href="/about">About</Link>
+    </nav>
+}
+```
