@@ -81,7 +81,11 @@ export default function NavBar() {
 
 <br><br>
 
-## 5) CSS Modules
+## 5) CSS 추가하는 방법
+
+### (1) CSS Modules
+
+-   https://github.com/yoojh9/nextjs/commit/4774bc539f7cf12264a5251ac11fe7d3aaf7d0ca
 
 -   아래 패턴을 CSS 모듈이라고 하는데, 이 패턴은 className을 추가할 때, className을 텍스트로 적지 않고 자바스크립트 오브젝트에서의 프로퍼티 형식으로 적는다.
 
@@ -106,6 +110,63 @@ export default function NavBar() {
 <nav class="NavBar_nav__OBiyO"><a style="color:blue" href="/">Home</a><a style="color:red" href="/about">About</a></nav>
 ```
 
+<br><br>
+
+### (2) Styled.jsx
+
+```
+export default function NavBar() {
+    const router = useRouter();
+
+    return <nav>
+        <Link href="/">
+            <a>Home</a>
+        </Link>
+        <Link href="/about">
+            <a>About</a>
+        </Link>
+
+        <style jsx>{`
+            nav {
+                background-color: tomato;
+            }
+            a {
+                text-decoration: none;
+            }
+            .active {
+                color: yellow;
+            }
+        `}</style>
+
+    </nav>
+}
+```
+
 <br>
 
-### (1) 첫번째 방식
+-   className에 대해서 고민할 필요도 없다.
+-   부모 컴포넌트가 그 클래스 이름을 사용하고 있을지라도 상관 없다.
+-   코드 내에서 NavBar가 active라는 이름의 클래스를 갖고 있다고 하더라도 styled.jsx를 사용하기 때문에, 이 스타일들은 오직 이 컴포넌트 내부로 범위가 한정된다.
+    그래서 index.js 파일에서 anchor의 색을 바꾸려고 시도해도 NavBar 내의 다른 anchor에 영향을 미치지 못한다.
+-   또한 h1 태그 내에 'active'라는 className을 직접 입력해도 작동하지 않는다. className은 랜덤으로 이름이 변경되고 내부에서만 적용된다.
+-   이렇게 랜덤으로 변경되는 className은 충돌에서부터 구해준다.
+
+```
+// index.js
+
+export default function Home() {
+
+    return (
+        <div>
+            <NavBar/>
+            <h1 className="active">Hello</h1>
+
+            <style jsx>{`
+                a {
+                    color: white;
+                }
+            `}</style>
+        </div>
+    );
+}
+```
