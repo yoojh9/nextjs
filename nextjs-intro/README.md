@@ -48,16 +48,18 @@
 
 -   NavBar.js 에서 아래와 같이 nativage 하는 데 <a> 태그를 사용하게 되면 아래와 같은 ESLint 에러 메세지를 볼 수 있다.
 
-```
+```javascript
 Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead
 ```
 
-```
+```javascript
 export default function NavBar() {
-    return <nav>
-        <a href="/">Home</a>
-        <a href="/about">About</a>
-    </nav>
+    return (
+        <nav>
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+        </nav>
+    );
 }
 ```
 
@@ -68,14 +70,16 @@ export default function NavBar() {
 
 <br>
 
-```
+```javascript
 import Link from "next/link";
 
 export default function NavBar() {
-    return <nav>
-        <Link href="/">Home</Link>
-        <Link href="/about">About</Link>
-    </nav>
+    return (
+        <nav>
+            <Link href="/">Home</Link>
+            <Link href="/about">About</Link>
+        </nav>
+    );
 }
 ```
 
@@ -89,15 +93,13 @@ export default function NavBar() {
 
 -   아래 패턴을 CSS 모듈이라고 하는데, 이 패턴은 className을 추가할 때, className을 텍스트로 적지 않고 자바스크립트 오브젝트에서의 프로퍼티 형식으로 적는다.
 
-```
-import styles from './NavBar.module.css';
+```javascript
+import styles from "./NavBar.module.css";
 
 export default function NavBar() {
     const router = useRouter();
 
-    return <nav className={styles.nav}>
-       ...
-    </nav>
+    return <nav className={styles.nav}>...</nav>;
 }
 ```
 
@@ -106,8 +108,15 @@ export default function NavBar() {
 -   이런 방식의 장점은 클래스 이름을 내부적으로 변경해주므로 그 어떤 '충돌'도 만들지 않는다.
 -   아래는 위 코드를 소스보기 했을 때의 코드이다.
 
-```
-<nav class="NavBar_nav__OBiyO"><a style="color:blue" href="/">Home</a><a style="color:red" href="/about">About</a></nav>
+```javascript
+<nav class="NavBar_nav__OBiyO">
+    <a style="color:blue" href="/">
+        Home
+    </a>
+    <a style="color:red" href="/about">
+        About
+    </a>
+</nav>
 ```
 
 <br><br>
@@ -116,31 +125,32 @@ export default function NavBar() {
 
 -   https://github.com/yoojh9/nextjs/commit/dbe927e8d5c95ab1013201bbcd6ece193edd47fb
 
-```
+```javascript
 export default function NavBar() {
     const router = useRouter();
 
-    return <nav>
-        <Link href="/">
-            <a>Home</a>
-        </Link>
-        <Link href="/about">
-            <a>About</a>
-        </Link>
+    return (
+        <nav>
+            <Link href="/">
+                <a>Home</a>
+            </Link>
+            <Link href="/about">
+                <a>About</a>
+            </Link>
 
-        <style jsx>{`
-            nav {
-                background-color: tomato;
-            }
-            a {
-                text-decoration: none;
-            }
-            .active {
-                color: yellow;
-            }
-        `}</style>
-
-    </nav>
+            <style jsx>{`
+                nav {
+                    background-color: tomato;
+                }
+                a {
+                    text-decoration: none;
+                }
+                .active {
+                    color: yellow;
+                }
+            `}</style>
+        </nav>
+    );
 }
 ```
 
@@ -153,14 +163,13 @@ export default function NavBar() {
 -   또한 h1 태그 내에 'active'라는 className을 직접 입력해도 작동하지 않는다. className은 랜덤으로 이름이 변경되고 내부에서만 적용된다.
 -   이렇게 랜덤으로 변경되는 className은 충돌에서부터 구해준다.
 
-```
+```javascript
 // index.js
 
 export default function Home() {
-
     return (
         <div>
-            <NavBar/>
+            <NavBar />
             <h1 className="active">Hello</h1>
 
             <style jsx>{`
@@ -179,13 +188,15 @@ export default function Home() {
 
 -   style 태그에 global Prop을 추가한다.
 
-```
+```javascript
 <style jsx global>
     {``}
 </style>
 ```
 
 -   App Component App Page
+
+<br>
 
 ### (1) App Component
 
@@ -196,11 +207,11 @@ export default function Home() {
 
 <br>
 
-```
-export default function App({Component, pageProps}) {
-    return (
-        <Component {...pageProps}/>
-    )
+```javascript
+// _app.js
+
+export default function App({ Component, pageProps }) {
+    return <Component {...pageProps} />;
 }
 ```
 
@@ -210,19 +221,19 @@ export default function App({Component, pageProps}) {
 
 -   원한다면 Global Styles를 추가할 수도 있다.
 
-```
-export default function App({Component, pageProps}) {
+```javascript
+export default function App({ Component, pageProps }) {
     return (
         <>
-            <NavBar/>
-            <Component {...pageProps}/>
+            <NavBar />
+            <Component {...pageProps} />
             <style jsx global>{`
                 a {
                     color: gray;
                 }
             `}</style>
         </>
-    )
+    );
 }
 ```
 
