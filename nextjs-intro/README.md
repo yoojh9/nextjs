@@ -25,3 +25,19 @@
 -   pages 하위의 파일명은 중요하지만, 파일 내의 components 이름은 중요하지 않다. 그냥 **export default**이기만 하면 된다.
 -   만약 default로 export 하지 않는다면, 해당 페이지 이름의 url로 접근했을 때 에러가 발생하는 것을 볼 수 있음
 -   즉, 유저에게 보여주고 싶은 게 있다면 pages 폴더에서 **export default function**을 해야 함.
+
+<br><br>
+
+## 3) Pre Rendering
+
+-   Next.js의 가장 큰 장점 중 하나는 앱에 있는 페이지들이 미리 렌더링 된다는 것이다.
+-   create-react-app은 client-side Render(CSR)를 하는 앱을 만든다.
+-   client-side 렌더링이란 사용자의 브라우저가 유저가 보는 모든 UI를 만드는 것을 의미한다. 브라우저가 react.js를 다운 받고 코드를 다운받았을 때, 그 때 react.js는 다른 모든 것들을 렌더링하고 유저는 그 이후에 화면을 볼 수 있다.
+-   즉 CSR은 브라우저가 자바스크립트를 가져와서 client-side의 자바스크립트가 모든 UI를 만든다.
+
+-   Next.js는 server-side Render로 유저들의 연결 속도가 느리거나 자바스크립트가 비활성화 되어 있어도 사용자에게 HTML을 제공해줄 수 있다.
+-   Next.js는 초기 상태로 pre-rendering을 한다.
+
+-   react.js를 프론트엔드 안에서 실행하는 걸 hydration이라고 부른다.
+-   왜냐면 next.js는 react.js를 백엔드에서 동작시켜서 이 페이지를 미리 만드는데, 이 때 component들을 render 시키고 렌더링이 끝났을 때 HTML이 된다. next.js는 그 HTML을 페이지의 소스코드에 넣어준다. 그럼 유저는 자바스크립트와 react.js가 로딩되지 않았더라도 콘텐츠를 볼 수 있다. 그리고 react.js가 로딩 되었을 때 기본적으로 이미 존재하는 것들과 연결하여, 일반적인 react.js 앱이 된다.
+-   유저가 웹 사이트에 가면 초기 상태의 component로 된 미리 생성된 HTML 페이지를 보게 되고 그리고 상호 작용이 일어나면 react.js는 그걸 받아서 아주 잘 동작하게 된다.
