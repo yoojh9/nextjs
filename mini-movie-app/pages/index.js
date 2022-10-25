@@ -10,18 +10,20 @@ export default function Home({results}) {
         <Seo title="Home"></Seo>
         {results?.map(result => (
           <div className="movie" key={result.id}>
-            <img src={`https://image.tmdb.org/t/p/w500/${result.poster_path}`}/>
+            <img src={`https://image.tmdb.org/t/p/w500${result.poster_path}`}/>
             <h4>{result.original_title}</h4>
           </div>
         ))}
 
-        <style jsx>
-          {`
+        <style jsx>{`
             .container {
               display: grid;
               grid-template-columns: 1fr 1fr;
               padding: 20px;
               gap: 20px;
+            }
+            .movie {
+              cursor: pointer;
             }
             .movie img {
               max-width: 100%;
@@ -36,8 +38,7 @@ export default function Home({results}) {
               font-size: 18px;
               text-align: center;
             }
-          `}
-        </style>
+          `}</style>
       </div>
   );
 };
