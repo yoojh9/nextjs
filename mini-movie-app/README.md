@@ -162,7 +162,7 @@ export async function getServerSideProps() {
 
 <br>
 
--   하지만 실행하게 되면 위 getServerSideProps()는 'Only absolute URLs are supported' 라는 에러 메세지가 나온다. '/api/movies'는 front에서만 작동하므로 서버에서는 작동하지 않는다. 그러므로 'https://localhost:3000/api.movies'로 변경한다.
+-   하지만 실행하게 되면 위 getServerSideProps()는 'Only absolute URLs are supported' 라는 에러 메세지가 나온다. '/api/movies'는 front에서만 작동하므로 서버에서는 작동하지 않는다. 그러므로 'https://localhost:3000/api/movies'로 변경한다.
 
 <br>
 
