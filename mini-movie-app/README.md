@@ -28,3 +28,83 @@ import Head from "next/head";
 ## 2) Fetching Data
 
 -   Movie Data: https://www.themoviedb.org/
+-   https://github.com/yoojh9/nextjs/commit/2acf9f2521dfe34f3952d3d158dbfffcfd9bcfeb
+
+<br><br>
+
+## 3) Redirect and Rewrite
+
+### (1) Redirect
+
+-   next.config.js에서 redirect 설정도 할 수 있다.
+-   아래 코드는 /contact로 접근할 시 /form으로 redirect 된다.
+-   우리 website 안에서든, 바깥으로든 redirect 할 수 있다.
+-   서버 설정이 바뀌는 것이므로 서버 restart 필요.
+
+<br>
+
+```javascript
+const nextConfig = {
+    reactStrictMode: true,
+    swcMinify: true,
+    async redirects() {
+        return [
+            {
+                source: "/contact",
+                destination: "/form",
+                permanent: false,
+            },
+        ];
+    },
+};
+
+module.exports = nextConfig;
+```
+
+<br>
+
+```javascript
+const nextConfig = {
+    reactStrictMode: true,
+    swcMinify: true,
+    async redirects() {
+        return [
+            {
+                source: "/old-blog/:path",
+                destination: "/new-blog/:path",
+                permanent: false,
+            },
+        ];
+    },
+};
+
+module.exports = nextConfig;
+```
+
+<br>
+
+### (2) Rewrite
+
+-   rewirtes는 유저를 redirect 시키기는 하지만 URL은 변하지 않는다.
+-   그래서 index.js에서 fetch 한 API_KEY를 숨기고 싶다면 rewrites를 이용한다.
+-   이 방법으로 NextJS가 Request를 Masking 할 수 있음. (마스크를 씌울 수 있음..)
+
+```javascript
+// next.config.js
+
+const API_KEY = "###########";
+
+async rewrites() {
+    return [
+      {
+          source: "/api/movies",
+          destination: `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=ko-KR`
+      }
+    ]
+  }
+
+```
+
+<br>
+
+-   위 API_KEY는 .env 파일로도 작업할 수 있다.
