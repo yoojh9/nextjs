@@ -1,17 +1,13 @@
 import '../styles/globals.css'
 import NavBar from '../components/NavBar'
+import Layout from '../components/Layout'
 
 function MyApp({ Component, pageProps }) {
   return (
-    <>
-      <NavBar/>
-      <Component {...pageProps} />
-      <style jsx global>{`
-          a {
-              color: gray;
-          }
-      `}</style>
-    </>
+      <Layout> 
+         {/* Layout의 children prop로 들어감 */}
+        <Component {...pageProps} />
+      </Layout>
   )
 }
 
