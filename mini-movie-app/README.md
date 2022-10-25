@@ -194,7 +194,7 @@ export async function getServerSideProps() {
 
 -   NextJS는 Props들을 아래 이미지와 같이 \_\_NEXT_DATA\_\_ 부분에 넣어준다. ReactJS가 로드 되면 백엔드에서 만들어진 모든 State들을 장악하여 ReactJS를 이용해 상호작용이 가능해진다.
 
-<img src="nextjs-serverside.png" width="400px">
+<img src="nextjs-serverside.png" width="800px">
 
 -   서버 사이드 렌더링의 경우 데이터가 HTML에 다 보여지므로 검색 엔진에게는 좋다.
 
