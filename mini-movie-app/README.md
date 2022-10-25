@@ -191,3 +191,5 @@ export async function getServerSideProps() {
 -   결국 우리가 한 건, page가 유저에게 보여지기 전에 props를 받아오는 function을 만드는 작업이다. getServerSideProps()에서 뭐가 return 되든 페이지의 props 값으로 사용된다.
 
 -   더 이상 loading 화면은 없는 대신, 만약 API load가 느리다면 유저가 아무것도 보지 못한 채로 오래 기다려야 한다는 단점이 있다. 선택은 개발자의 몫이다.
+
+-   https://github.com/yoojh9/nextjs/commit/473c63ed390b5423dcd212e0c5faf4c867ff5f06
