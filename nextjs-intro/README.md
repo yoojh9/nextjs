@@ -291,3 +291,16 @@ export default function App({ Component, pageProps }) {
     );
 }
 ```
+
+<br><br>
+
+## 7) Recap
+
+-   create-react-app은 CSR(Client-Side Render)이다.
+-   Next.js는 페이지들이 미리 Pre-Render 된다. 컴포넌트의 초기 상태로 자동 렌더링 된다.
+
+-   Redhydration: NextJS가 백엔드 상에서 ReactJS를 돌리고 있고, NextJS는 페이지를 pre-generate(사전 생성)하여 유저는 그 HTML을 보게 된다. 유저가 모든 자바스크립트를 다운로드 한 후, ReactJS가 주도권을 가져와서 일반적인 ReactJS처럼 동작한다.
+
+-   CSS
+    -   Css Module
+    -   Style JSX
