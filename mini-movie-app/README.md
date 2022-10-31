@@ -260,7 +260,7 @@ router.push(
 
 -   https://github.com/yoojh9/nextjs/commit/4c9b95f53ffd35fb0eb17c3b16115226ff9b8498
 
-<br><bR>
+<br><br>
 
 ## 7) Catch All
 
@@ -315,3 +315,13 @@ export function getServerSideProps({ params: { params } }) {
     };
 }
 ```
+
+<br>
+
+-   https://github.com/yoojh9/nextjs/commit/30867266ee4d95b5c8d335bca40807e33568cf98
+
+<br><br>
+
+## 8) 404
+
+-   pages/404.js 만들면 됨
