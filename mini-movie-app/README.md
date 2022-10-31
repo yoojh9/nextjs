@@ -199,3 +199,13 @@ export async function getServerSideProps() {
 -   서버 사이드 렌더링의 경우 데이터가 HTML에 다 보여지므로 검색 엔진에게는 좋다.
 
 -   https://github.com/yoojh9/nextjs/commit/473c63ed390b5423dcd212e0c5faf4c867ff5f06
+
+<br><br>
+
+## 5) Dynamic Route
+
+-   url에 변수를 넣을 수도 있다.
+-   Next.js에는 Route가 없으므로 router를 설정하거나 하는 건 하지 않음.
+-   만약 '/movies/all'과 같은 URL을 만들고 싶다면 pages 폴더 내에 movies 폴더를 만들고 movies 폴더 하위에 'all.js'라는 새로운 파일을 만든다.
+-   만약 '/movies'와 '/movies/all'이라는 URL을 둘 다 가지고 있다면, 'movies' 폴더 안에 'index.js' 파일을 만들어주면 된다.
+-   URL에 변수가 들어갈 경우 '/movies/[id].js'와 같이 파일을 생성하면 된다.
