@@ -210,7 +210,7 @@ export async function getServerSideProps() {
 -   만약 '/movies'와 '/movies/all'이라는 URL을 둘 다 가지고 있다면, 'movies' 폴더 안에 'index.js' 파일을 만들어주면 된다.
 -   URL에 변수가 들어갈 경우 '/movies/[id].js'와 같이 파일을 생성하면 된다.
 
-<br><bR>
+<br><br>
 
 ## 6) Movie Detail
 
@@ -257,3 +257,61 @@ router.push(
 <br>
 
 -   이 방법은 사용자가 URL로 직접 들어올 때는 router에서 숨겨진 query 데이터를 확인할 수는 없다.
+
+-   https://github.com/yoojh9/nextjs/commit/4c9b95f53ffd35fb0eb17c3b16115226ff9b8498
+
+<br><bR>
+
+## 7) Catch All
+
+-   컴포넌트 내부에서 router를 사용하면 router는 프론트에서만 실행이 된다.
+
+<br>
+
+```javascript
+// [...params].js
+
+export default function Detail() {
+    const router = useRouter();
+    const [title, id] = router.query.params || [];
+    return (
+        <div>
+            <h4>{title}</h4>
+        </div>
+    );
+}
+```
+
+<br>
+
+-   getServerSideProps() 으로 API fetch 외에도 URL 정보를 가져올 수도 있음.
+-   만약 URL에 들어있는 영화 제목을 사용해서 구글 SEO에 최적화 하고, 페이지를 pre-render 하고 싶다면 server-side에서 정보를 얻기 위한 getServerSideProps()를 실행하면 된다.
+-   server-side에서 받아온 정보를 페이지로 넘겨주면 페이지는 그 정보를 받아서 보여준다. 그럼 server-side에서 pre-render한 게 된다.
+
+<br>
+
+```javascript
+// [...params].js
+
+export default function Detail({ params }) {
+    const router = useRouter();
+
+    const [title, id] = params || [];
+    return (
+        <div>
+            <h4>{title}</h4>
+        </div>
+    );
+}
+
+// API가 fetch가 아니라 데이터를 조금 더 빠르게 가져오기 위해 getServerSideProps를 사용
+// 이 경우에는 영화 제목이랑 ID를 얻기 위해 getServerSideProps를 사용
+// SEO에 최적화되게 만들 수 있음. 이렇게 하면 백엔드에서 가져온 데이터도 소스코드보기로 화면에 나옴
+export function getServerSideProps({ params: { params } }) {
+    return {
+        props: {
+            params,
+        },
+    };
+}
+```
