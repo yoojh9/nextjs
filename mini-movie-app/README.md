@@ -209,3 +209,51 @@ export async function getServerSideProps() {
 -   만약 '/movies/all'과 같은 URL을 만들고 싶다면 pages 폴더 내에 movies 폴더를 만들고 movies 폴더 하위에 'all.js'라는 새로운 파일을 만든다.
 -   만약 '/movies'와 '/movies/all'이라는 URL을 둘 다 가지고 있다면, 'movies' 폴더 안에 'index.js' 파일을 만들어주면 된다.
 -   URL에 변수가 들어갈 경우 '/movies/[id].js'와 같이 파일을 생성하면 된다.
+
+<br><bR>
+
+## 6) Movie Detail
+
+### (1) Route 방법
+
+-   <Link>
+-   useRouter().push();
+
+<br>
+
+### (2) URL에 state 보내기
+
+```javascript
+const router = useRouter();
+
+router.push({
+    pathname: `/movies/${id}`,
+    query: {
+        title: "potatos",
+    },
+});
+```
+
+<br>
+
+-   URL을 push()의 두번쨰 옵션인 'as'을 이용해서 숨길 수 있다. as를 이용하면 URL을 마스킹할 수 있다.
+-   URL에서는 숨겨지더라도 router를 콘솔에 찍어보면 query에서 확인할 수 있다.
+
+<br>
+
+```javascript
+router.push(`/movies/${id}`);
+router.push(
+    {
+        pathname: `/movies/${id}`,
+        query: {
+            title: title,
+        },
+    },
+    `/movies/${id}`
+);
+```
+
+<br>
+
+-   이 방법은 사용자가 URL로 직접 들어올 때는 router에서 숨겨진 query 데이터를 확인할 수는 없다.
